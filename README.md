@@ -88,6 +88,27 @@ An eye-catching, bottom-right contextual chatbot powered by Google Gemini, capab
 
 ---
 
+## 🏗️ System Architecture
+
+The system is designed with a decoupled client-server architecture to ensure scalability and real-time responsiveness:
+
+1. **IoT / Hardware Layer**: Sensors collect live physiological data (Heart Rate, SpO2, Temperature) and transmit it via Wi-Fi/ESP32 directly to the backend API.
+2. **Backend API Layer (Flask)**: Processes incoming sensor data, authenticates users (JWT/session), and stores time-series vitals in SQLite. 
+3. **Machine Learning Pipeline**: The backend runs the data through a pre-trained Scikit-Learn model (`MODEL3.py`) to generate instant clinical predictions (e.g., 'Normal', 'Elevated Risk', 'Critical'). It also computes temporal baseline deviations.
+4. **AI Context Engine**: The Google Gemini API is injected with the patient's specific history and recent vitals, acting as a specialized medical reasoning engine for the chatbot.
+5. **Frontend Client (React)**: Fetches and visualizes the data through interactive Recharts graphs, rendering conditional UI based on whether the user is a Patient or a Doctor.
+
+---
+
+## ⚙️ How It Works (Core Functioning)
+
+* **Data Acquisition**: Live vitals are recorded and instantly sent to the `/api/patients/{id}/vitals` endpoint.
+* **Risk Stratification**: Upon receiving data, the custom ML model evaluates the reading against a dataset of clinical scenarios, returning a confidence score and a classification label.
+* **Trend Analysis**: The system analyzes the last 50 readings to detect subtle deteriorations (e.g., a slow, continuous drop in SpO2 over 4 hours) that a human might miss.
+* **Interactive AI Guidance**: When a patient asks the Chatbot a question, the backend intercepts the query, packages it seamlessly with the patient's age, BMI, comorbidities, and the trend analysis, and sends it to Gemini. Gemini then replies with highly contextual, personalized advice without requiring the patient to explain their current health state.
+
+---
+
 ## 🚀 Getting Started
 
 Follow these steps to run the project locally on your machine.
