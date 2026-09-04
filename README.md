@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="assets/hero_banner.jpg" alt="Health Monitoring Device Banner" width="100%" style="border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
 
   # 🏥 AI-Powered Smart Health Monitoring System
   
@@ -355,5 +354,4 @@ npm run dev
 ---
 
 <div align="center">
-  <b>Built with ❤️ for the future of connected and proactive healthcare.</b>
 </div>
